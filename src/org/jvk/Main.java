@@ -1,6 +1,7 @@
 package org.jvk;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -15,8 +16,8 @@ public class Main {
         Random randomGenerator = new Random();
         myApples.forEach(apple -> apple.setWeight(randomGenerator.nextInt(1000)));
         List<Apple> heavyApples = myApples.parallelStream()
-                                          .filter(apple -> apple.getWeight() > 100)
-                                          .sorted((apple1, apple2) -> Integer.compare(apple1.getWeight(), apple2.getWeight()))
+                                          .filter(apple -> apple.getWeight() >= 500 && apple.getWeight() <= 600)
+                                          .sorted(Comparator.comparing(Apple::getWeight))
                                           .collect(Collectors.toList());
         heavyApples.stream().forEach(System.out::println);
     }
